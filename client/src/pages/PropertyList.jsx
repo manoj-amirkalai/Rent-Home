@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import { setPropertyList } from "../redux/state";
 import Loader from "../components/Loader";
 import Footer from "../components/Footer"
+import { toast } from "react-toastify";
 
 const PropertyList = () => {
   const [loading, setLoading] = useState(true)
   const user = useSelector((state) => state.user)
   const propertyList = user?.propertyList;
-  console.log(user)
 
   const dispatch = useDispatch()
   const getPropertyList = async () => {
@@ -20,11 +20,10 @@ const PropertyList = () => {
         method: "GET"
       })
       const data = await response.json()
-      console.log(data)
       dispatch(setPropertyList(data))
       setLoading(false)
     } catch (err) {
-      console.log("Fetch all properties failed", err.message)
+      toast.info("Fetch all properties failed")
     }
   }
 

@@ -7,6 +7,7 @@ import { setListings } from "../redux/state";
 import Loader from "../components/Loader";
 import ListingCard from "../components/ListingCard";
 import Footer from "../components/Footer"
+import { toast } from "react-toastify";
 
 const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ const CategoryPage = () => {
       dispatch(setListings({ listings: data }));
       setLoading(false);
     } catch (err) {
-      console.log("Fetch Listings Failed", err.message);
+      toast.info("Fetch Listings Failed")
     }
   };
 

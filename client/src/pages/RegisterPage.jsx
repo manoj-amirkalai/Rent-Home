@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -21,36 +23,43 @@ const RegisterPage = () => {
     });
   };
 
-  const [passwordMatch, setPasswordMatch] = useState(true)
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
   useEffect(() => {
-    setPasswordMatch(formData.password === formData.confirmPassword || formData.confirmPassword === "")
-  })
+    setPasswordMatch(
+      formData.password === formData.confirmPassword ||
+        formData.confirmPassword === ""
+    );
+  });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const register_form = new FormData()
+      const register_form = new FormData();
 
       for (var key in formData) {
-        register_form.append(key, formData[key])
+        register_form.append(key, formData[key]);
       }
 
-      const response = await fetch("http://localhost:3001/auth/register", {
-        method: "POST",
-        body: register_form
-      })
-
-      if (response.ok) {
-        navigate("/login")
+      const response = await axios.post(
+        "http://localhost:3001/auth/register",
+        register_form
+      );
+     
+      if (!response.data.success) {
+        toast.error(response.data.message);
+      }
+      if (response.data.success) {
+        navigate("/login");
+        toast.success("Registered Successfully");
       }
     } catch (err) {
-      console.log("Registration failed", err.message)
+      toast.failure("Registration Failed");
     }
-  }
+  };
 
   return (
     <div className="register">
@@ -106,7 +115,6 @@ const RegisterPage = () => {
             accept="image/*"
             style={{ display: "none" }}
             onChange={handleChange}
-            required
           />
           <label htmlFor="image">
             <img src="/assets/addImage.png" alt="add profile photo" />
@@ -120,7 +128,9 @@ const RegisterPage = () => {
               style={{ maxWidth: "80px" }}
             />
           )}
-          <button type="submit" disabled={!passwordMatch}>REGISTER</button>
+          <button type="submit" disabled={!passwordMatch}>
+            REGISTER
+          </button>
         </form>
         <a href="/login">Already have an account? Log In Here</a>
       </div>

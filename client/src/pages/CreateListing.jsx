@@ -10,6 +10,7 @@ import { BiTrash } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { toast } from "react-toastify";
 
 const CreateListing = () => {
   const [category, setCategory] = useState("");
@@ -136,7 +137,8 @@ const CreateListing = () => {
         navigate("/");
       }
     } catch (err) {
-      console.log("Publish Listing failed", err.message);
+      
+      toast.info("Publish Listing failed")
     }
   };
   return (

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTripList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
 import Footer from "../components/Footer"
+import { toast } from "react-toastify";
 
 const TripList = () => {
   const [loading, setLoading] = useState(true);
@@ -27,7 +28,8 @@ const TripList = () => {
       dispatch(setTripList(data));
       setLoading(false);
     } catch (err) {
-      console.log("Fetch Trip List failed!", err.message);
+      
+      toast.info("Fetch Trip List failed!")
     }
   };
 

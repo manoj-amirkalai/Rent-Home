@@ -5,6 +5,7 @@ import ListingCard from "./ListingCard";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
+import { toast } from "react-toastify";
 
 const Listings = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const Listings = () => {
       dispatch(setListings({ listings: data }));
       setLoading(false);
     } catch (err) {
-      console.log("Fetch Listings Failed", err.message);
+      toast.info("Fetch Listings Failed")
     }
   };
 

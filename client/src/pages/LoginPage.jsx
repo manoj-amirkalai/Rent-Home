@@ -3,6 +3,7 @@ import "../styles/Login.scss"
 import { setLogin } from "../redux/state";
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -35,10 +36,11 @@ const LoginPage = () => {
           })
         )
         navigate("/")
+        toast.success("Logged in Successfully")
       }
 
     } catch (err) {
-      console.log("Login failed", err.message)
+      toast.info("Login failed")
     }
   }
 

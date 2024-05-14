@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer"
+import {  toast } from "react-toastify";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +31,7 @@ const ListingDetails = () => {
       setListing(data);
       setLoading(false);
     } catch (err) {
-      console.log("Fetch Listing Details Failed", err.message);
+      toast.info("Fetch Listing Details Failed",)
     }
   };
 
@@ -38,7 +39,6 @@ const ListingDetails = () => {
     getListingDetails();
   }, []);
 
-  console.log(listing)
 
 
   /* BOOKING CALENDAR */
@@ -85,9 +85,10 @@ const ListingDetails = () => {
 
       if (response.ok) {
         navigate(`/${customerId}/trips`)
+        toast.info("Booked")
       }
     } catch (err) {
-      console.log("Submit Booking Failed.", err.message)
+      toast.info("Submit Booking Failed.")
     }
   }
 
