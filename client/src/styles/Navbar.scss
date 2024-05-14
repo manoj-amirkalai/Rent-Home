@@ -11,7 +11,12 @@
   @include sm {
     padding: 10px 20px;
   }
-
+  .logo{
+    
+    width: 120px;
+    margin: -20px 0;
+    cursor: pointer;
+  }
   img {
     width: 100px;
     cursor: pointer;
