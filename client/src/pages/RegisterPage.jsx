@@ -57,7 +57,7 @@ const RegisterPage = () => {
         toast.success("Registered Successfully");
       }
     } catch (err) {
-      toast.failure("Registration Failed");
+      toast.error("Registration Failed");
     }
   };
 
