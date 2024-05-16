@@ -18,12 +18,14 @@ app.use("/auth", authRoutes);
 app.use("/properties", listingRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/users", userRoutes);
-
+app.get("/", (req, res) => {
+  res.send("Welcome to the API");
+});
 mongoose
   .connect(process.env.MONGO_URL, {
     dbName: "Dream_Nest",
   })
   .then(() => {
-    app.listen(3000, () => console.log(`Server Port 3000`));
+    app.listen(3001, () => console.log(`Server Port 3001`));
   })
   .catch((err) => console.log(`${err} did not connect`));
