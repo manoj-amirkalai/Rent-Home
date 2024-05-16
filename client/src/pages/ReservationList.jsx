@@ -18,7 +18,7 @@ const ReservationList = () => {
   const getReservationList = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/users/${userId}/reservations`,
+        `https://home-rent-home-backend.onrender/users/${userId}/reservations`,
         {
           method: "GET",
         }

@@ -3,7 +3,6 @@ const router = require("express").Router();
 const Stripe = require("stripe");
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const Booking = require("../models/Booking");
-const { message } = require("prompt");
 
 /* CREATE BOOKING */
 router.post("/create", async (req, res) => {

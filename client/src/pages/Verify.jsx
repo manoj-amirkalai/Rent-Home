@@ -11,7 +11,7 @@ const Verify = () => {
   
 
   const verifyPayment = async () => {
-   const response= await axios.post("http://localhost:3001/bookings/updatebooking", {
+   const response= await axios.post("https://home-rent-home-backend.onrender/bookings/updatebooking", {
       success,
       orderId,
     });

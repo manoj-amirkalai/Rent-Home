@@ -53,7 +53,7 @@ const ListingCard = ({
   const patchWishList = async () => {
     if (user?._id !== creator._id) {
       const response = await fetch(
-        `http://localhost:3001/users/${user?._id}/${listingId}`,
+        `https://home-rent-home-backend.onrender/users/${user?._id}/${listingId}`,
         {
           method: "PATCH",
           header: {
@@ -70,14 +70,14 @@ const ListingCard = ({
 
   const retryPayment = async () => {
     await axios.post(
-      "http://localhost:3001/bookings/delete",
+      "https://home-rent-home-backend.onrender/bookings/delete",
 
       { orderId: orderId }
     );
   };
   const deleteOrder=async()=>{
     await axios.post(
-      "http://localhost:3001/bookings/delete",
+      "https://home-rent-home-backend.onrender/bookings/delete",
 
       { orderId: orderId }
     );
@@ -99,7 +99,7 @@ const ListingCard = ({
           {listingPhotoPaths?.map((photo, index) => (
             <div key={index} className="slide">
               <img
-                src={`http://localhost:3001/${photo?.replace("public", "")}`}
+                src={`https://home-rent-home-backend.onrender/${photo?.replace("public", "")}`}
                 alt={`photo ${index + 1}`}
               />
               <div

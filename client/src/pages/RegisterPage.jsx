@@ -45,7 +45,7 @@ const RegisterPage = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:3001/auth/register",
+        "https://home-rent-home-backend.onrender/auth/register",
         register_form
       );
      
