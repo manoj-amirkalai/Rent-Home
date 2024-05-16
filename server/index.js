@@ -19,13 +19,11 @@ app.use("/properties", listingRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/users", userRoutes);
 
-/* MONGOOSE SETUP */
-const PORT = 3001;
 mongoose
   .connect(process.env.MONGO_URL, {
     dbName: "Dream_Nest",
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(3000, () => console.log(`Server Port 3000`));
   })
   .catch((err) => console.log(`${err} did not connect`));
