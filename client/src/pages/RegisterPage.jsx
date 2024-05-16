@@ -45,7 +45,7 @@ const RegisterPage = () => {
       }
 
       const response = await axios.post(
-        "https://home-rent-home-backend.onrender/auth/register",
+        "https://manoj-rent-home-backend.onrender.com/auth/register",
         register_form
       );
      

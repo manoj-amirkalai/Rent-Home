@@ -16,7 +16,7 @@ const PropertyList = () => {
   const dispatch = useDispatch()
   const getPropertyList = async () => {
     try {
-      const response = await fetch(`https://home-rent-home-backend.onrender/users/${user._id}/properties`, {
+      const response = await fetch(`https://manoj-rent-home-backend.onrender.com/users/${user._id}/properties`, {
         method: "GET"
       })
       const data = await response.json()

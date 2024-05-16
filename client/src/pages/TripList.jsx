@@ -18,7 +18,7 @@ const TripList = () => {
   const getTripList = async () => {
     try {
       const response = await fetch(
-        `https://home-rent-home-backend.onrender/users/${userId}/trips`,
+        `https://manoj-rent-home-backend.onrender.com/users/${userId}/trips`,
         {
           method: "GET",
         }

@@ -21,7 +21,7 @@ const ListingDetails = () => {
   const getListingDetails = async () => {
     try {
       const response = await fetch(
-        `https://home-rent-home-backend.onrender/properties/${listingId}`,
+        `https://manoj-rent-home-backend.onrender.com/properties/${listingId}`,
         {
           method: "GET",
         }
@@ -73,7 +73,7 @@ const ListingDetails = () => {
         totalPrice: listing.price * dayCount,
       };
 
-      const response = await fetch("https://home-rent-home-backend.onrender/bookings/create", {
+      const response = await fetch("https://manoj-rent-home-backend.onrender.com/bookings/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const ListingDetails = () => {
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
             <img
-              src={`https://home-rent-home-backend.onrender/${item.replace("public", "")}`}
+              src={`https://manoj-rent-home-backend.onrender.com/${item.replace("public", "")}`}
               alt="listing photo"
             />
           ))}
@@ -122,7 +122,7 @@ const ListingDetails = () => {
 
         <div className="profile">
           <img
-            src={`https://home-rent-home-backend.onrender/${listing.creator.profileImagePath.replace(
+            src={`https://manoj-rent-home-backend.onrender.com/${listing.creator.profileImagePath.replace(
               "public",
               ""
             )}`}

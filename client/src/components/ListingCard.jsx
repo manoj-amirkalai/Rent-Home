@@ -53,7 +53,7 @@ const ListingCard = ({
   const patchWishList = async () => {
     if (user?._id !== creator._id) {
       const response = await fetch(
-        `https://home-rent-home-backend.onrender/users/${user?._id}/${listingId}`,
+        `https://manoj-rent-home-backend.onrender.com/users/${user?._id}/${listingId}`,
         {
           method: "PATCH",
           header: {
@@ -70,14 +70,14 @@ const ListingCard = ({
 
   const retryPayment = async () => {
     await axios.post(
-      "https://home-rent-home-backend.onrender/bookings/delete",
+      "https://manoj-rent-home-backend.onrender.com/bookings/delete",
 
       { orderId: orderId }
     );
   };
   const deleteOrder=async()=>{
     await axios.post(
-      "https://home-rent-home-backend.onrender/bookings/delete",
+      "https://manoj-rent-home-backend.onrender.com/bookings/delete",
 
       { orderId: orderId }
     );
@@ -99,7 +99,7 @@ const ListingCard = ({
           {listingPhotoPaths?.map((photo, index) => (
             <div key={index} className="slide">
               <img
-                src={`https://home-rent-home-backend.onrender/${photo?.replace("public", "")}`}
+                src={`https://manoj-rent-home-backend.onrender.com/${photo?.replace("public", "")}`}
                 alt={`photo ${index + 1}`}
               />
               <div
