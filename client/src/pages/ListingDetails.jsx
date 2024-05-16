@@ -9,8 +9,8 @@ import { DateRange } from "react-date-range";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
-import Footer from "../components/Footer"
-import {  toast } from "react-toastify";
+import Footer from "../components/Footer";
+import { toast } from "react-toastify";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
@@ -31,15 +31,13 @@ const ListingDetails = () => {
       setListing(data);
       setLoading(false);
     } catch (err) {
-      toast.info("Fetch Listing Details Failed",)
+      toast.info("Fetch Listing Details Failed");
     }
   };
 
   useEffect(() => {
     getListingDetails();
   }, []);
-
-
 
   /* BOOKING CALENDAR */
   const [dateRange, setDateRange] = useState([
@@ -60,9 +58,9 @@ const ListingDetails = () => {
   const dayCount = Math.round(end - start) / (1000 * 60 * 60 * 24); // Calculate the difference in day unit
 
   /* SUBMIT BOOKING */
-  const customerId = useSelector((state) => state?.user?._id)
+  const customerId = useSelector((state) => state?.user?._id);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -73,31 +71,30 @@ const ListingDetails = () => {
         startDate: dateRange[0].startDate.toDateString(),
         endDate: dateRange[0].endDate.toDateString(),
         totalPrice: listing.price * dayCount,
-      }
+      };
 
       const response = await fetch("http://localhost:3001/bookings/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(bookingForm)
-      })
-
+        body: JSON.stringify(bookingForm),
+      });
+      const data = await response.json();
       if (response.ok) {
-        navigate(`/${customerId}/trips`)
-        toast.info("Booked")
+        window.location.replace(data.session_url);
       }
     } catch (err) {
-      toast.info("Submit Booking Failed.")
+      toast.error("Booking Failed.");
     }
-  }
+  };
 
   return loading ? (
     <Loader />
   ) : (
     <>
       <Navbar />
-      
+
       <div className="listing-details">
         <div className="title">
           <h1>{listing.title}</h1>

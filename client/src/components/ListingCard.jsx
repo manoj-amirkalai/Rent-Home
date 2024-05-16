@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import "../styles/ListingCard.scss";
 import {
   ArrowForwardIos,
@@ -11,6 +12,7 @@ import { setWishList } from "../redux/state";
 
 const ListingCard = ({
   listingId,
+  orderId,
   creator,
   listingPhotoPaths,
   city,
@@ -23,6 +25,7 @@ const ListingCard = ({
   endDate,
   totalPrice,
   booking,
+  paid,
 }) => {
   /* SLIDER FOR IMAGES */
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -64,6 +67,22 @@ const ListingCard = ({
       return;
     }
   };
+
+  const retryPayment = async () => {
+    await axios.post(
+      "http://localhost:3001/bookings/delete",
+
+      { orderId: orderId }
+    );
+  };
+  const deleteOrder=async()=>{
+    await axios.post(
+      "http://localhost:3001/bookings/delete",
+
+      { orderId: orderId }
+    );
+    window.history.back()
+  }
 
   return (
     <div
@@ -115,7 +134,16 @@ const ListingCard = ({
         <>
           <p>{type}</p>
           <p>
-            <span>${price}</span> per night
+            <span  style={{ color: "rgb(24, 73, 152)" }}>${price}</span> per night
+          </p>
+        </>
+      ) : paid ? (
+        <>
+          <p>
+            {startDate} - {endDate}
+          </p>
+          <p>
+            <span style={{ color: "green" }}>${totalPrice}</span>
           </p>
         </>
       ) : (
@@ -124,7 +152,9 @@ const ListingCard = ({
             {startDate} - {endDate}
           </p>
           <p>
-            <span>${totalPrice}</span> total
+            <span style={{ color: "red" }}>${totalPrice}</span> &nbsp;
+            <span onClick={() => retryPayment()}>Book Again</span>&nbsp;&nbsp;
+            <span onClick={() => deleteOrder()} style={{ color: "red" }}>X</span>&nbsp;&nbsp;
           </p>
         </>
       )}

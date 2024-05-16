@@ -28,7 +28,7 @@ const LoginPage = () => {
       /* Get data after fetching */
       const loggedIn = await response.json()
 
-      if (loggedIn) {
+      if (response.ok) {
         dispatch (
           setLogin({
             user: loggedIn.user,
@@ -37,10 +37,12 @@ const LoginPage = () => {
         )
         navigate("/")
         toast.success("Logged in Successfully")
+      }else{
+        toast.error("Invalid Credentials")
       }
 
     } catch (err) {
-      toast.info("Login failed")
+      toast.error("Login failed")
     }
   }
 

@@ -13,6 +13,7 @@ import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Verify from "./pages/Verify";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             path="/properties/category/:category"
             element={<CategoryPage />}
           />
+          <Route path="/verify" element={<Verify />} />
           <Route path="/properties/search/:search" element={<SearchPage />} />
           <Route path="/:userId/trips" element={<TripList />} />
           <Route path="/:userId/wishList" element={<WishList />} />
