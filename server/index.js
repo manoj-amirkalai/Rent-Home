@@ -28,4 +28,4 @@ mongoose
   .then(() => {
     app.listen(3001, () => console.log(`Server Port 3001`));
   })
-  .catch((err) => console.log(`${err} did not connect`));
+  .catch((err) => console.log(`${err} ,Server did not connect`));
