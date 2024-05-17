@@ -71,13 +71,15 @@ const ListingCard = ({
     }
   };
 
-  const retryPayment = async () => {
+  const retryPayment = async (listingId) => {
     
     await axios.post(
       "https://manoj-rent-home-backend.onrender.com/bookings/delete",
 
       { orderId: orderId }
     );
+     alert("bok again")
+    navigate(`/properties/${listingId}`);
   };
   const deleteOrder = async () => {
     try {
@@ -187,7 +189,7 @@ const ListingCard = ({
           </p>
           <p>
             <span style={{ color: "red" }}>${totalPrice}</span> &nbsp;
-            <span onClick={() => retryPayment()}>Book Again</span>&nbsp;&nbsp;
+            <span onClick={() => retryPayment(listingId)}>Book Again</span>&nbsp;&nbsp;
             <span onClick={() => deleteOrder()} style={{ color: "red" }}>
               X
             </span>
