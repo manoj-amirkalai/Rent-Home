@@ -78,7 +78,6 @@ const ListingCard = ({
 
       { orderId: orderId }
     );
-     alert("bok again")
     navigate(`/properties/${listingId}`);
   };
   const deleteOrder = async () => {
