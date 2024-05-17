@@ -8,10 +8,12 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setWishList } from "../redux/state";
+import { setWishList, setTripList } from "../redux/state";
+import { toast } from "react-toastify";
 
 const ListingCard = ({
   listingId,
+  customerId,
   orderId,
   creator,
   listingPhotoPaths,
@@ -46,6 +48,7 @@ const ListingCard = ({
 
   /* ADD TO WISHLIST */
   const user = useSelector((state) => state.user);
+  const userId = useSelector((state) => state.user._id);
   const wishList = user?.wishList || [];
 
   const isLiked = wishList?.find((item) => item?._id === listingId);
@@ -69,72 +72,103 @@ const ListingCard = ({
   };
 
   const retryPayment = async () => {
+    
     await axios.post(
       "https://manoj-rent-home-backend.onrender.com/bookings/delete",
 
       { orderId: orderId }
     );
   };
-  const deleteOrder=async()=>{
-    await axios.post(
-      "https://manoj-rent-home-backend.onrender.com/bookings/delete",
+  const deleteOrder = async () => {
+    try {
+      await axios.post(
+        "https://manoj-rent-home-backend.onrender.com/bookings/delete",
 
-      { orderId: orderId }
-    );
-    window.history.back()
-  }
+        { orderId: orderId }
+      );
+      const response = await fetch(
+        `https://manoj-rent-home-backend.onrender.com/users/${userId}/trips`,
+        {
+          method: "GET",
+        }
+      );
+
+      const data = await response.json();
+      dispatch(setTripList(data));
+    } catch (err) {
+      toast.info("Fetch Trip List failed!");
+    }
+  };
 
   return (
-    <div
-      className="listing-card"
-      onClick={() => {
-        navigate(`/properties/${listingId}`);
-      }}
-    >
-      <div className="slider-container">
-        <div
-          className="slider"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {listingPhotoPaths?.map((photo, index) => (
-            <div key={index} className="slide">
-              <img
-                src={`https://manoj-rent-home-backend.onrender.com/${photo?.replace("public", "")}`}
-                alt={`photo ${index + 1}`}
-              />
-              <div
-                className="prev-button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToPrevSlide(e);
-                }}
-              >
-                <ArrowBackIosNew sx={{ fontSize: "15px" }} />
+    <div div className="listing-card">
+      <div
+        onClick={() => {
+          navigate(`/properties/${listingId}`);
+        }}
+      >
+        <div className="slider-container">
+          <div
+            className="slider"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {listingPhotoPaths?.map((photo, index) => (
+              <div key={index} className="slide">
+                <img
+                  src={`https://manoj-rent-home-backend.onrender.com/${photo?.replace(
+                    "public",
+                    ""
+                  )}`}
+                  alt={`photo ${index + 1}`}
+                />
+                <div
+                  className="prev-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToPrevSlide(e);
+                  }}
+                >
+                  <ArrowBackIosNew sx={{ fontSize: "15px" }} />
+                </div>
+                <div
+                  className="next-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToNextSlide(e);
+                  }}
+                >
+                  <ArrowForwardIos sx={{ fontSize: "15px" }} />
+                </div>
               </div>
-              <div
-                className="next-button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToNextSlide(e);
-                }}
-              >
-                <ArrowForwardIos sx={{ fontSize: "15px" }} />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        <h3>
+          {city}, {province}, {country}
+        </h3>
+        <p>{category}</p>
+
+        <button
+          className="favorite"
+          onClick={(e) => {
+            e.stopPropagation();
+            patchWishList();
+          }}
+        >
+          {isLiked ? (
+            <Favorite sx={{ color: "red" }} />
+          ) : (
+            <Favorite sx={{ color: "white" }} />
+          )}
+        </button>
       </div>
-
-      <h3>
-        {city}, {province}, {country}
-      </h3>
-      <p>{category}</p>
-
       {!booking ? (
         <>
           <p>{type}</p>
           <p>
-            <span  style={{ color: "rgb(24, 73, 152)" }}>${price}</span> per night
+            <span style={{ color: "rgb(24, 73, 152)" }}>${price}</span> per
+            night
           </p>
         </>
       ) : paid ? (
@@ -154,24 +188,13 @@ const ListingCard = ({
           <p>
             <span style={{ color: "red" }}>${totalPrice}</span> &nbsp;
             <span onClick={() => retryPayment()}>Book Again</span>&nbsp;&nbsp;
-            <span onClick={() => deleteOrder()} style={{ color: "red" }}>X</span>&nbsp;&nbsp;
+            <span onClick={() => deleteOrder()} style={{ color: "red" }}>
+              X
+            </span>
+            &nbsp;&nbsp;
           </p>
         </>
       )}
-
-      <button
-        className="favorite"
-        onClick={(e) => {
-          e.stopPropagation();
-          patchWishList();
-        }}
-      >
-        {isLiked ? (
-          <Favorite sx={{ color: "red" }} />
-        ) : (
-          <Favorite sx={{ color: "white" }} />
-        )}
-      </button>
     </div>
   );
 };
