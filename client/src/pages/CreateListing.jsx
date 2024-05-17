@@ -134,7 +134,7 @@ const CreateListing = () => {
       });
 
       if (response.ok) {
-        navigate("/");
+        navigate("/homepage");
       }
     } catch (err) {
       

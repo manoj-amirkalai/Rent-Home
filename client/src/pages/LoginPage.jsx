@@ -35,7 +35,7 @@ const LoginPage = () => {
             token: loggedIn.token
           })
         )
-        navigate("/")
+        navigate("/homepage")
         toast.success("Logged in Successfully")
       }else{
         toast.error("Invalid Credentials")

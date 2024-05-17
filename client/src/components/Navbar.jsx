@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <a href="/">
+      <a href="/homepage">
         <img className="logo" src="/assets/logo.png" alt="logo" />
       </a>
 
@@ -46,7 +46,7 @@ const Navbar = () => {
             Become A Host
           </a>
         ) : (
-          <a href="/login" className="host">
+          <a href="/" className="host">
             Become A Host
           </a>
         )}
@@ -72,7 +72,7 @@ const Navbar = () => {
 
         {dropdownMenu && !user && (
           <div className="navbar_right_accountmenu">
-            <Link to="/login">Log In</Link>
+            <Link to="/">Log In</Link>
             <Link to="/register">Sign Up</Link>
           </div>
         )}
@@ -86,7 +86,7 @@ const Navbar = () => {
             <Link to="/create-listing">Become A Host</Link>
 
             <Link
-              to="/login"
+              to="/"
               onClick={() => {
                 dispatch(setLogout());
               }}

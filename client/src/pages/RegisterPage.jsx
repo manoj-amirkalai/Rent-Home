@@ -53,7 +53,7 @@ const RegisterPage = () => {
         toast.error(response.data.message);
       }
       if (response.data.success) {
-        navigate("/login");
+        navigate("/");
         toast.success("Registered Successfully");
       }
     } catch (err) {
@@ -132,7 +132,7 @@ const RegisterPage = () => {
             REGISTER
           </button>
         </form>
-        <a href="/login">Already have an account? Log In Here</a>
+        <a href="/">Already have an account? Log In Here</a>
       </div>
     </div>
   );
