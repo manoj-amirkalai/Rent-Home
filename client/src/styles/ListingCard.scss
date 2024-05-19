@@ -5,10 +5,11 @@
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
-  background-color: rgba(77, 124, 201, 0.519);
+  background-color: rgb(222, 232, 251);
 
   &:hover {
     @include shadow;
+    background-color: rgba(77, 124, 201, 0.519);
   }
 
   .slider-container {

@@ -168,7 +168,7 @@ const ListingCard = ({
         <>
           <p>{type}</p>
           <p>
-            <span style={{ color: "rgb(24, 73, 152)" }}>${price}</span> per
+            <span className="price" style={{ color: "rgb(24, 73, 152)" }}>${price}</span> per
             night
           </p>
         </>
